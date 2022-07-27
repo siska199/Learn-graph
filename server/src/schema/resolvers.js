@@ -4,7 +4,9 @@ const resolvers = {
         users: ()=>{
             return UserList
         },
-        user: (parent,args)=>{
+        user: (parent,args, context, info)=>{
+            console.log("context: ", context)
+            console.log("info: ", info)
             console.log("parent: ", parent)
             console.log("args: ", args)
             const id = args.id
