@@ -1,4 +1,4 @@
-import { UserList, MovieList } from "./data"
+import { UserList, MovieList } from "../lib/data"
 const resolvers = {
     Query :{
         users: ()=>{
@@ -28,7 +28,6 @@ const resolvers = {
     Mutation : {
         createUser : (parent, args)=>{
             const userData = args.input
-            console.log("get User data: ", userData)
             const lastId = UserList.length-1
             UserList.push({
                 ...userData,
@@ -44,7 +43,6 @@ const resolvers = {
                 ...UserList[index],
                 ...userData
             }
-            console.log("new data: ", UserList[index])
             return UserList[index]
         },
         deleteUser: (parent,args)=>{
