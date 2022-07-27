@@ -8,6 +8,7 @@ const typeDefs = gql`
         age : Int!
         nationality : Nationality!
         friends : [User]
+        favoriteMovies : [Movie]
     }
     type Movie{
         id : ID!
@@ -16,10 +17,31 @@ const typeDefs = gql`
         isInTheathers : Boolean!
     }
 
-
     type Query{
         users : [User!]! 
         user(id: ID!): User!  
+        movies : [Movie!]!
+        movie(name: String!): Movie!
+    }
+
+    input CreateUserInput{
+        name : String!
+        age : Int!
+        nationality : Nationality!
+    }
+
+    input UpdateUserInput{
+        id : ID!
+        name : String
+        username : String
+        age : Int
+        nationality : Nationality
+    }
+
+    type Mutation {
+        createUser(input: CreateUserInput!) : User
+        updateUser(input: UpdateUserInput!) : User
+        deleteUser(id : ID!): [User]
     }
 
     enum Nationality {

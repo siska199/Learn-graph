@@ -13,3 +13,13 @@ export const UserList = [
         }))
     }
 ))
+
+export const MovieList = [
+    ...Array(10)
+].map((_,i)=>({
+    id : i,
+    name : `name movie ${i}`,
+    year : 2000+i,
+    isInTheathers: i%2==0?true:false
+
+}))
