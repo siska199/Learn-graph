@@ -1,5 +1,5 @@
-import React from 'react'
-import {useQuery, gql} from "@apollo/client"
+import React, { useState } from 'react'
+import {useQuery, gql, useLazyQuery} from "@apollo/client"
 
 const QUERY_ALL_USERS = gql`
     query GetAllUsers{
@@ -21,9 +21,21 @@ const QUERY_ALL_MOVIES = gql`
 
 `
 
+const QUERY_MOVIE_BY_NAME = gql`
+    query GetMovieByName($name : String!){
+        movie(name: $name){
+            name
+            year
+        }
+    }
+`
+
 const DisplayData = () => {
     const {data:dataUsers, loading, error} = useQuery(QUERY_ALL_USERS)
     const {data:dataMovies, loading :loadingMovies, error:errorMovies} = useQuery(QUERY_ALL_MOVIES)
+    const [fetchMovie, {data:movieSearched, error:errorMovieSearched}] = useLazyQuery(QUERY_MOVIE_BY_NAME )
+    const [movie, setMovie] = useState("")
+
     if(loading){
         return <h1>Loading data...</h1>
     }
@@ -34,6 +46,7 @@ const DisplayData = () => {
     if(error){
         console.log(error)
     }
+    console.log("Movie searched: ", movieSearched)
   return (
     <div>
         {
@@ -41,6 +54,24 @@ const DisplayData = () => {
                 <h1>{data.name}</h1>
             ))
         }
+
+        <div>
+            <input onChange={(e)=>setMovie(e.target.value)}/>
+            <button onClick={()=>fetchMovie({
+                variables : {
+                    name : movie
+                }
+            })}>Search</button>
+            <div>
+                {
+                    movieSearched && (
+                        <div>
+                            {movieSearched.movie.name}
+                        </div>
+                    )
+                }
+            </div>
+        </div>
     </div>
   )
 }
