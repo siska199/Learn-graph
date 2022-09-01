@@ -14,7 +14,7 @@ const messages = [];
 const resolvers = {
   Query: {
     books: () => books,
-    messages: () => messages,
+    getMessages: () => messages,
   },
 
   Mutation: {

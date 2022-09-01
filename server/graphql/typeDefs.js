@@ -7,23 +7,22 @@ const typeDefs = gql`
   }
 
   type Message {
-    id : ID!
-    user :String!
-    content: String ! 
+    id: ID!
+    user: String!
+    content: String!
   }
-
 
   type Query {
     books: [Book]
-    messages : [Message!]
+    getMessages: [Message!]
   }
 
-  input inputPostMessage{
-    user : String!
-    content : String!
+  input inputPostMessage {
+    user: String!
+    content: String!
   }
   type Mutation {
-    postMessage(form:inputPostMessage): ID!
+    postMessage(form: inputPostMessage): ID!
   }
 `;
 
