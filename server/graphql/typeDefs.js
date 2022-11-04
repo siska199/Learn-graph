@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server");
+const { gql, PubSub } = require("apollo-server");
 
 const typeDefs = gql`
   type Book {
@@ -23,6 +23,10 @@ const typeDefs = gql`
   }
   type Mutation {
     postMessage(form: inputPostMessage): ID!
+  }
+
+  type Subscription {
+    messagesUpdated: [Message!]
   }
 `;
 
